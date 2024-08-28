@@ -8,6 +8,7 @@ import {
   Raycaster,
   Vector2,
 } from "three";
+import world from "../assets/map/world.json";
 
 class EventStore {
   // 事件映射
@@ -33,6 +34,7 @@ class EventStore {
       Object.keys(this._chartScene.options.config?.hoverRegionStyle).length > 0;
     // 注册mousemove事件
     this.registerBuildInEventMap("mousemove", () => {
+      // this.registerBuildInEventMap("mouseup", () => {
       if (this.areaColorNeedChange) {
         if (this.currentMesh) { 
           (this.currentMesh.material as MeshBasicMaterial).color.set(
@@ -43,6 +45,23 @@ class EventStore {
         }
       }
     });
+    // this.registerBuildInEventMap("mouseup", () => {
+    //   if (this.currentMesh&&this.currentMesh.userData?.name) { 
+    //     console.log('this.currentMesh', this.currentMesh)
+    //     const countryData = this.getCountryJson(this.currentMesh.userData.name)
+    //     if(countryData){
+    //       // this._chartScene.remove("mapStreamLine");
+    //       countryData.forEach((item: any) => {
+    //         this._chartScene.addData("mapStreamLine", {
+    //           data: item,
+    //           style: {
+    //             opacity: 1,
+    //           },
+    //         });
+    //       });
+    //     }
+    //   }
+    // })
   }
   // 注册事件
   registerEventMap(
@@ -119,6 +138,13 @@ class EventStore {
       // if(intersects[0].object.isTransformControls)
       return intersects[0].object as Mesh;
     }
+  }
+
+  getCountryJson(name: string) {
+    const countryData = world.features.find((item: any) => {
+      return item.properties.name === name;
+    })!.geometry.coordinates as any;
+    return countryData
   }
 }
 export default EventStore;

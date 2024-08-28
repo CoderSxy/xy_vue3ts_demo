@@ -163,14 +163,12 @@ export default class EarthController {
     // }
     if(this.deviceType === 'mobile'){
       this.isDragging = false;
-      console.log('mouseup', this.deviceType, event instanceof MouseEvent, event instanceof TouchEvent)
       if(event instanceof MouseEvent) {
         event.preventDefault()
         return 
       }
     }else if(this.deviceType === 'pc') {
       this.isDragging = false;
-      console.log('mouseup', this.deviceType, event instanceof MouseEvent, event instanceof TouchEvent)
     }
     // this.isDragging = false;
   }

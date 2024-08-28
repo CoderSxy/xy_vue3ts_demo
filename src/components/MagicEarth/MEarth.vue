@@ -81,6 +81,12 @@ const initData1 = [
 
 let chartInstance1: ChartScene;
 // 注册地图
+
+// 将中国地图取出特殊处理
+const chinaData = world.features.find((item: any) => {
+  return item.properties.name === "China";
+})!.geometry.coordinates as any;
+
 chart.registerMap("world", world as any);
 onMounted(() => {
   const dom = document.getElementById("econtainer");
@@ -130,6 +136,19 @@ onMounted(() => {
       }, 1000);
     }
     polling();
+
+    chartInstance1.on("click", (event: Event, mesh: any) => {
+      // chartInstance1.options.autoRotate = false;
+      chartInstance1.remove("mapStreamLine");
+    });
+    chinaData.forEach((item: any) => {
+      chartInstance1.addData("mapStreamLine", {
+        data: item,
+        style: {
+          opacity: 1,
+        },
+      });
+    });
   }
 });
 </script>

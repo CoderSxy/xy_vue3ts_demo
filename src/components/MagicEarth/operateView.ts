@@ -115,6 +115,7 @@ export default class OperateView {
     return this.addData(type, data);
   };
   remove(mainContainer: Object3D, type: string, ids: string[] | "removeAll") {
+
     if (mainContainer.children.length !== 0) {
       for (let i = mainContainer.children.length - 1; i >= 0; i--) {
         let item = mainContainer.children[i];
